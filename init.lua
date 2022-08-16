@@ -83,11 +83,14 @@ local config = {
     init = {
       -- You can disable default plugins as follows:
       -- ["goolord/alpha-nvim"] = { disable = true },
-      { "simrat39/rust-tools.nvim" },
+      ["mg979/vim-visual-multi"] = {},
+      ["ggandor/lightspeed.nvim"] = {},
+      ["nvim-lua/plenary.nvim"] = {},
+      ["mfussenegger/nvim-dap"] = {},
       {
-        "https://git.sr.ht/~whynothugo/lsp_lines.nvim",
-        config = function() require("lsp_lines").setup() end,
+        "C:\\Users\\loco\\AppData\\Local\\nvim\\site\\plugins\\start\\lsp_lines.nvim",
       },
+      { "simrat39/rust-tools.nvim" },
       -- You can also add new plugins here as well:
       -- { "andweeb/presence.nvim" },
       -- {
@@ -178,10 +181,12 @@ local config = {
     server_registration = function(server, opts)
       if server == "rust_analyzer" then
         require("rust-tools").setup { server = opts }
+        require("lsp_lines").setup()
         return
       end
 
       require("lspconfig")[server].setup(opts)
+      require("lsp_lines").setup()
     end,
     -- add to the server on_attach function
     -- on_attach = function(client, bufnr)
